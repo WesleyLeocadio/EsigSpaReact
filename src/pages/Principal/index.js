@@ -132,13 +132,13 @@ function Principal() {
                         <li key={registro.id}>
                             <strong>Descrição:</strong>
                             <p>{registro.descricao}</p>
-                            {registro.status ? <FiCheckCircle/> : <FiCircle/>}
+                            {registro.status ? <FiCheckCircle size={20}/> : <FiCircle size={20}/>}
                             <button onClick={() => handleDeleteIncident(registro.id)} type="button">
-                                <FiTrash2 size={20} color="#a8a8b3" />
+                                <FiTrash2 size={20}  />
 
                             </button>
                             <button id="update" onClick={() => handleUpdateIncident(registro.id)} type="button">
-                                <FiEdit size={20} color="#a8a8b3" />
+                                <FiEdit size={20}  />
 
                             </button>
 

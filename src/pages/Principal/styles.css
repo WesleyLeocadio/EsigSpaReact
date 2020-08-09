@@ -142,7 +142,7 @@ form input{
     transition: border-color 0.2s;
 }
 .profile-container ul li:hover{
-    background: rgb(250, 142, 142);
+    background: rgb(142, 162, 250);
 }
 
 .profile-container ul li button{
