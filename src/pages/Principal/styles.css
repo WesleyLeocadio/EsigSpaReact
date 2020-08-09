@@ -42,7 +42,10 @@ form input{
     font-size: 18px;
     line-height: 18px;
     transition: filter .2s;
+    margin-left: 12px;
+    margin-right: 2px;
 }
+
 
 .button:hover{
     filter: brightness(80%);
@@ -139,7 +142,7 @@ form input{
     transition: border-color 0.2s;
 }
 .profile-container ul li:hover{
-    background: rgb(206, 250, 253);
+    background: rgb(250, 142, 142);
 }
 
 .profile-container ul li button{
@@ -151,6 +154,12 @@ form input{
 
 .profile-container ul li button:hover{
     background: rgb(216, 28, 28);
+    zoom: 1.1;
+
+}
+ #update:hover{
+    background: rgb(28, 47, 216);
+    zoom: 1.1;
 
 }
 
@@ -165,7 +174,7 @@ form input{
 }
 
 .profile-container ul li p{
-    color: #737380;
+    color: #606068;
     line-height: 21px;
     font-size: 16px;
     margin-bottom: 30px;

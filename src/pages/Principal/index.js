@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import imageEsig from '../../assets/esigapresentacao.png';
-import imageAberta from '../../assets/aberto_icon.png';
-import imageFechada from '../../assets/ok_circle_icon.png';
 
 import './styles.css';
 import api from '../../services/api';
@@ -16,15 +14,18 @@ function Principal() {
     const [status, setStatus] = useState(false);
 
 
-    function atualizarBanco(){
+    function atualizarBanco() {
         api.get('registro').then(response => {
             setRegistros(response.data);
         })
+        document.getElementById("texto").innerHTML = "Todos";
+
     }
-    
+
     useEffect(() => {
         api.get('registro').then(response => {
             setRegistros(response.data);
+
         })
     }, []);
 
@@ -37,12 +38,13 @@ function Principal() {
         };
         try {
             const response = await api.post('registro', data);
-            alert('Registro adicionado');
             atualizarBanco();
 
         } catch (err) {
             alert('Erro no cadastro, tente novamente.');
         }
+        setDescricao("");
+
     }
 
 
@@ -78,30 +80,37 @@ function Principal() {
         } catch (err) {
             alert('Erro ao atualizar registro, tente novamente.');
         }
+        document.getElementById("texto").innerHTML = "Todos";
+
     }
 
     async function handlefindAllByStatus(b) {
+        let text = "Lista de registros Ativos";
+        if (b) {
+            text = "Lista de registros Concluídos";
+        }
+
+        document.getElementById("texto").innerHTML = text;
         try {
             await api.get(`registro/${b}`).then(response => {
                 setRegistros(response.data);
-            })      
+            })
 
         } catch (err) {
             alert('Erro ao atualizar registro, tente novamente.');
         }
     }
 
-    
 
     return (
         <div className="profile-container">
-            
+
             <img className="image" src={imageEsig} alt="Be The Hero" />
             <section className="form">
 
 
                 <form onSubmit={handleRegister} >
-                    <input
+                    <input id="input"
                         placeholder="Descrição"
                         value={descricao}
                         onChange={e => setDescricao(e.target.value)}
@@ -110,22 +119,20 @@ function Principal() {
 
                 </form>
                 <div className="grupobotoes">
-                    <button className="button" onClick={() => atualizarBanco()}  id ="all" type="submit">All</button>
-                    <button className="button" onClick={() => handlefindAllByStatus(false)} id ="allactive" type="submit">Active</button>
-                    <button className="button" onClick={() => handlefindAllByStatus(true)} id ="allcompleted"type="submit">Completed</button>
-                    <button className="button" onClick={() => deleteAllStatusCompleted()}  id ="Allclear"type="submit">completed</button>
+                    <button className="button" onClick={() => atualizarBanco()} id="all" type="submit">Todos</button>
+                    <button className="button" onClick={() => handlefindAllByStatus(false)} id="allactive" type="submit">Ativos</button>
+                    <button className="button" onClick={() => handlefindAllByStatus(true)} id="allcompleted" type="submit">Concluídos</button>
+                    <button id="btnExcluir"className="button" onClick={() => deleteAllStatusCompleted()} id="Allclear" type="submit">Excluir concluídos</button>
 
                 </div>
-                <h1>Casos cadastrados</h1>
+                <h1 id="texto">Casos cadastrados</h1>
 
                 <ul>
                     {registros.map(registro => (
                         <li key={registro.id}>
                             <strong>Descrição:</strong>
                             <p>{registro.descricao}</p>
-
-                    
-
+                            {registro.status ? <FiCheckCircle/> : <FiCircle/>}
                             <button onClick={() => handleDeleteIncident(registro.id)} type="button">
                                 <FiTrash2 size={20} color="#a8a8b3" />
 
